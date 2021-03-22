@@ -17,7 +17,7 @@ function verifyIdExistsAccountCPF(req, res, next) {
     return res.status(400).json({ error: 'Customer not found' });
   }
 
-  request.customer = customer;
+  req.customer = customer;
 
   return next();
 }
