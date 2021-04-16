@@ -407,6 +407,230 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Rentalx",
+			"item": [
+				{
+					"name": "Categories",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Sedan\",\n\t\"description\": \"Categoria de carro Sedan\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3333/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Import",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/home/lucas/arquivo.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3333/categories/import",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"categories",
+										"import"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Specifications",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Câmbio automático\",\n\t\"description\": \"Carro com câbio automático\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/specifications",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"specifications"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\": \"Lucas\",\r\n   \"email\": \"lucas.eduardo.developer@gmail.com\",\r\n   \"password\": \"123456\",\r\n   \"driver_license\": \"123456\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Session",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"email\": \"lucas.eduardo.developer@gmail.com\",\r\n   \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/sessions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"sessions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Avatar",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg1MzIxNTksImV4cCI6MTYxODYxODU1OSwic3ViIjoiNjRmOTIxYTItM2Q5Mi00MWYwLWIyNzctYzU5MTc1NGViOTQzIn0.nGr-RnCrGj3xMJKfQeLRkfymX3x1Qy-m4bwJz6zjhg0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/C:/Users/lucas/Pictures/profile.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3333/users/avatar",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"users",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"event": [
@@ -431,6 +655,7 @@
 	],
 	"variable": [
 		{
+			"id": "f971f54e-ef59-4693-bffa-98e02bd49549",
 			"key": "path",
 			"value": ""
 		}
