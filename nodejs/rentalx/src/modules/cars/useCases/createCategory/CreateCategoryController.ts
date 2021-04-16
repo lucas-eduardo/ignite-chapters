@@ -15,4 +15,4 @@ class CreateCategoryController {
   }
 }
 
-export { CreateCategoryController }
+export { CreateCategoryController };

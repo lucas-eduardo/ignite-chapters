@@ -1,9 +1,9 @@
-import { inject, injectable } from "tsyringe";
-import { compare } from "bcrypt";
+import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import { inject, injectable } from 'tsyringe';
 
-import { IUsersRepository } from "../../repositories/IUsersRepository";
-import { AppError } from "../../../../errors/AppError";
+import { AppError } from '../../../../errors/AppError';
+import { IUsersRepository } from '../../repositories/IUsersRepository';
 
 interface IRequest {
   email: string;
@@ -14,7 +14,7 @@ interface IResponse {
   user: {
     name: string;
     email: string;
-  },
+  };
   token: string;
 }
 
@@ -22,7 +22,7 @@ interface IResponse {
 class AuthenticateUserUseCase {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -40,17 +40,17 @@ class AuthenticateUserUseCase {
 
     const token = sign({}, '420edbda5c495280d8e6b2906de2bbf5', {
       subject: user.id,
-      expiresIn: '1d'
+      expiresIn: '1d',
     });
 
     return {
       user: {
         name: user.name,
-        email: user.email
+        email: user.email,
       },
-      token
-    }
+      token,
+    };
   }
 }
 
-export { AuthenticateUserUseCase }
+export { AuthenticateUserUseCase };

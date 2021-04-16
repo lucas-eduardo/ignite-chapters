@@ -1,6 +1,6 @@
 import { promises } from 'fs';
 
-export const deleteFile = async (filename: string) => {
+export const deleteFile = async (filename: string): Promise<void> => {
   try {
     await promises.stat(filename);
   } catch (error) {
@@ -8,4 +8,4 @@ export const deleteFile = async (filename: string) => {
   }
 
   await promises.unlink(filename);
-}
+};

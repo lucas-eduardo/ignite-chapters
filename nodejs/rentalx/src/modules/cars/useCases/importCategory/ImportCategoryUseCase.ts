@@ -1,6 +1,6 @@
-import { inject, injectable } from 'tsyringe';
-import fs from 'fs';
 import csvParse from 'csv-parse';
+import fs from 'fs';
+import { inject, injectable } from 'tsyringe';
 
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 
@@ -13,32 +13,35 @@ interface IImportCategory {
 class ImportCategoryUseCase {
   constructor(
     @inject('CategoriesRepository')
-    private categoriesRepository: ICategoriesRepository
+    private categoriesRepository: ICategoriesRepository,
   ) {}
 
-  private loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
+  private loadCategories(
+    file: Express.Multer.File,
+  ): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(file.path);
-      const categories: IImportCategory[] = []
+      const categories: IImportCategory[] = [];
 
       const parseFile = csvParse();
 
       stream.pipe(parseFile);
 
-      parseFile.on('data', async (line) => {
-        const [name, description] = line;
+      parseFile
+        .on('data', async line => {
+          const [name, description] = line;
 
-        categories.push({
-          name,
-          description
-        });
-      })
-      .on('end', async () => {
-        await fs.promises.unlink(file.path);
-        resolve(categories)
-      })
-      .on('error', reject);
-    })
+          categories.push({
+            name,
+            description,
+          });
+        })
+        .on('end', async () => {
+          await fs.promises.unlink(file.path);
+          resolve(categories);
+        })
+        .on('error', reject);
+    });
   }
 
   async execute(file: Express.Multer.File): Promise<void> {
@@ -50,11 +53,11 @@ class ImportCategoryUseCase {
       if (!existCategory) {
         await this.categoriesRepository.create({
           name,
-          description
+          description,
         });
       }
     });
   }
 }
 
-export { ImportCategoryUseCase }
+export { ImportCategoryUseCase };

@@ -1,5 +1,5 @@
-import { v4 as uuidV4 } from 'uuid';
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import { v4 as uuidV4 } from 'uuid';
 
 @Entity('users')
 class User {
@@ -23,7 +23,7 @@ class User {
 
   @Column()
   avatar: string;
-  
+
   @CreateDateColumn()
   created_at: Date;
 

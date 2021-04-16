@@ -1,8 +1,9 @@
+import crypto from 'crypto';
 import multer from 'multer';
 import { resolve } from 'path';
-import crypto from 'crypto';
 
 export default {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   upload(folder: string) {
     return {
       storage: multer.diskStorage({
@@ -12,8 +13,8 @@ export default {
           const filename = `${fileHash}-${file.originalname}`;
 
           return callback(null, filename);
-        }
-      })
-    }
-  }
-}
+        },
+      }),
+    };
+  },
+};

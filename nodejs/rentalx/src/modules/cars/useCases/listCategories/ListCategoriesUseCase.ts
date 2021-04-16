@@ -1,13 +1,13 @@
-import { inject, injectable } from "tsyringe";
+import { inject, injectable } from 'tsyringe';
 
-import { Category } from "../../entities/Category";
-import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+import { Category } from '../../entities/Category';
+import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 
 @injectable()
 class ListCategoriesUseCase {
   constructor(
     @inject('CategoriesRepository')
-    private categoriesRepository: ICategoriesRepository
+    private categoriesRepository: ICategoriesRepository,
   ) {}
 
   async execute(): Promise<Category[]> {
@@ -17,4 +17,4 @@ class ListCategoriesUseCase {
   }
 }
 
-export { ListCategoriesUseCase }
+export { ListCategoriesUseCase };
