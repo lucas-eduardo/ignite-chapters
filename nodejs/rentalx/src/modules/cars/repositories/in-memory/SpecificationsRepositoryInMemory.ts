@@ -5,22 +5,19 @@ import {
   ISpecificationsRepository,
 } from '../ISpecificationsRepository';
 
-class SpecificationsRepositoryInMemory implements ISpecificationsRepository {
-  specifications: Specification[] = [];
+class SpecificationRepositoryInMemory implements ISpecificationsRepository {
+  private specifications: Specification[] = [];
 
   async create({
     name,
     description,
   }: ICreateSpecificationDTO): Promise<Specification> {
     const specification = new Specification();
-
     Object.assign(specification, {
       name,
       description,
     });
-
     this.specifications.push(specification);
-
     return specification;
   }
 
@@ -31,12 +28,10 @@ class SpecificationsRepositoryInMemory implements ISpecificationsRepository {
   }
 
   async findByIds(ids: string[]): Promise<Specification[]> {
-    const allSpecifications = this.specifications.filter(({ id }) =>
-      ids.includes(id),
+    return this.specifications.filter(specification =>
+      ids.includes(specification.id),
     );
-
-    return allSpecifications;
   }
 }
 
-export { SpecificationsRepositoryInMemory };
+export { SpecificationRepositoryInMemory };

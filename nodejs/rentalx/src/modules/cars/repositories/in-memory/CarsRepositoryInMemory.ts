@@ -7,6 +7,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
   cars: Car[] = [];
 
   async create({
+    id,
     brand,
     category_id,
     daily_rate,
@@ -15,11 +16,10 @@ class CarsRepositoryInMemory implements ICarsRepository {
     license_plate,
     name,
     specifications,
-    id,
   }: ICreateCarDTO): Promise<Car> {
-    const cars = new Car();
-
-    Object.assign(cars, {
+    const car = new Car();
+    Object.assign(car, {
+      id: id || car.id,
       brand,
       category_id,
       daily_rate,
@@ -28,12 +28,13 @@ class CarsRepositoryInMemory implements ICarsRepository {
       license_plate,
       name,
       specifications,
-      id,
     });
+    this.cars.push(car);
+    return car;
+  }
 
-    this.cars.push(cars);
-
-    return cars;
+  async findById(id: string): Promise<Car> {
+    return this.cars.find(car => car.id === id);
   }
 
   async findByLicensePlate(license_plate: string): Promise<Car> {
@@ -45,23 +46,22 @@ class CarsRepositoryInMemory implements ICarsRepository {
     category_id?: string,
     name?: string,
   ): Promise<Car[]> {
-    const cars = this.cars
-      .filter(({ available }) => available)
-      .filter(car => (brand && car.brand === brand) ?? true)
-      .filter(car => (category_id && car.category_id === category_id) ?? true)
-      .filter(car => (name && car.name === name) ?? true);
-
-    return cars;
+    return this.cars.filter(car => {
+      if (
+        car.available === true &&
+        (brand ? car.brand === brand : true) &&
+        (name ? car.name === name : true) &&
+        (category_id ? car.category_id === category_id : true)
+      ) {
+        return car;
+      }
+      return null;
+    });
   }
 
-  async findById(carId: string): Promise<Car> {
-    return this.cars.find(({ id }) => id === carId);
-  }
-
-  async updateAvailable(id: string, available: boolean): Promise<void> {
-    const findIndex = this.cars.findIndex(car => car.id === id);
-
-    this.cars[findIndex].available = available;
+  async updateAvailable(car_id: string, availability: boolean): Promise<void> {
+    const carIndex = this.cars.findIndex(car => car.id === car_id);
+    this.cars[carIndex].available = availability;
   }
 }
 

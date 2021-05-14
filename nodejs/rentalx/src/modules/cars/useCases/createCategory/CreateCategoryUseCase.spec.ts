@@ -1,12 +1,12 @@
 import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory';
-import { AppError } from '@shared/errors/AppError';
 
+import { CreateCategoryError } from './CreateCategoryError';
 import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 
-let createCategoryUseCase: CreateCategoryUseCase;
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
+let createCategoryUseCase: CreateCategoryUseCase;
 
-describe('Create category', () => {
+describe('Create Category Use Case', () => {
   beforeEach(() => {
     categoriesRepositoryInMemory = new CategoriesRepositoryInMemory();
     createCategoryUseCase = new CreateCategoryUseCase(
@@ -14,30 +14,28 @@ describe('Create category', () => {
     );
   });
 
-  it('should be able to create a new category', async () => {
-    const category = {
+  it('Should be able to create a category', async () => {
+    const newCategory = {
       name: 'Category Test',
       description: 'Category description Test',
     };
-
-    await createCategoryUseCase.execute(category);
-
+    await createCategoryUseCase.execute(newCategory);
     const categoryCreated = await categoriesRepositoryInMemory.findByName(
-      category.name,
+      newCategory.name,
     );
 
     expect(categoryCreated).toHaveProperty('id');
   });
 
-  it('should not be able to create a new category with name exists', async () => {
-    expect(async () => {
-      const category = {
-        name: 'Category Test',
-        description: 'Category description Test',
-      };
+  it('Should not be able to create a existing category checking by name', async () => {
+    const newCategory = {
+      name: 'Category Test',
+      description: 'Category description Test',
+    };
+    await createCategoryUseCase.execute(newCategory);
 
-      await createCategoryUseCase.execute(category);
-      await createCategoryUseCase.execute(category);
-    }).rejects.toBeInstanceOf(AppError);
+    await expect(
+      createCategoryUseCase.execute(newCategory),
+    ).rejects.toBeInstanceOf(CreateCategoryError);
   });
 });

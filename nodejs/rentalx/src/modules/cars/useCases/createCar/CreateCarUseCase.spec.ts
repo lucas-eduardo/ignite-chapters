@@ -1,66 +1,41 @@
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
-import { AppError } from '@shared/errors/AppError';
 
+import { CreateCarError } from './CreateCarError';
 import { CreateCarUseCase } from './CreateCarUseCase';
 
 let createCarUseCase: CreateCarUseCase;
 let carsRepositoryInMemory: CarsRepositoryInMemory;
+const mockCar = {
+  name: 'Car Name',
+  description: 'Description',
+  daily_rate: 100,
+  license_plate: 'ABC-1234',
+  fine_amount: 60,
+  brand: 'Brand',
+  category_id: 'Category',
+};
 
-describe('Create Car', () => {
+describe('Create car use case', () => {
   beforeEach(() => {
     carsRepositoryInMemory = new CarsRepositoryInMemory();
     createCarUseCase = new CreateCarUseCase(carsRepositoryInMemory);
   });
 
-  it('should be able to create a new car', async () => {
-    const car = await createCarUseCase.execute({
-      brand: 'Brand Car',
-      category_id: 'category',
-      daily_rate: 100,
-      description: 'Description Car',
-      fine_amount: 60,
-      license_plate: 'ABC-1234',
-      name: 'Name Car',
-    });
-
+  it('Should be able to create a new car', async () => {
+    const car = await createCarUseCase.execute(mockCar);
     expect(car).toHaveProperty('id');
   });
 
-  it('should not be able to create a car with exists license plate', () => {
-    expect(async () => {
-      await createCarUseCase.execute({
-        brand: 'Brand Car',
-        category_id: 'category',
-        daily_rate: 100,
-        description: 'Description Car',
-        fine_amount: 60,
-        license_plate: 'ABC-1234',
-        name: 'Car1',
-      });
-
-      await createCarUseCase.execute({
-        brand: 'Brand Car',
-        category_id: 'category',
-        daily_rate: 100,
-        description: 'Description Car',
-        fine_amount: 60,
-        license_plate: 'ABC-1234',
-        name: 'Car2',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+  it('Should be able to create a new car as available by default', async () => {
+    const car = await createCarUseCase.execute(mockCar);
+    expect(car.available).toBe(true);
   });
 
-  it('should not be able to create a car with available true by default', async () => {
-    const car = await createCarUseCase.execute({
-      brand: 'Brand Car',
-      category_id: 'category',
-      daily_rate: 100,
-      description: 'Description Car',
-      fine_amount: 60,
-      license_plate: 'ABC-1234',
-      name: 'Car available',
-    });
+  it('Should not be able to create with license_plate already in use', async () => {
+    await createCarUseCase.execute(mockCar);
 
-    expect(car.available).toBe(true);
+    await expect(createCarUseCase.execute(mockCar)).rejects.toBeInstanceOf(
+      CreateCarError,
+    );
   });
 });
