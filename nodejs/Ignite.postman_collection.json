@@ -502,6 +502,16 @@
 						{
 							"name": "Create",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjA3ODM3MTgsImV4cCI6MTYyMDg3MDExOCwic3ViIjoiNzk4MjA4MzAtOWVlOC00ZGQ3LWFmMzItODMwYzE4OGQ0ZDk5In0.eB5fOUBflycQlrqPXSWC8YPCuEc6EQwZ69-BS2E22YI",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -629,6 +639,265 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Cars",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjA3Nzk0MTAsImV4cCI6MTYyMDg2NTgxMCwic3ViIjoiNzk4MjA4MzAtOWVlOC00ZGQ3LWFmMzItODMwYzE4OGQ0ZDk5In0.lp1SQVE_L-B17o_QK65Di7K2zy4THjR564pfO6YWtPE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"brand\": \"Audi 12\",\r\n    \"category_id\": \"37cf3e11-f126-40ff-a51b-f50e6083648a\",\r\n    \"daily_rate\": 140.00,\r\n    \"description\": \"Carro chic\",\r\n    \"fine_amount\": 100,\r\n    \"license_plate\": \"DEF-1213\",\r\n    \"name\": \"Audi 10\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/cars",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Available",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3333/cars/available?category_id=37cf3e11-f126-40ff-a51b-f50e6083648a",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"cars",
+										"available"
+									],
+									"query": [
+										{
+											"key": "category_id",
+											"value": "37cf3e11-f126-40ff-a51b-f50e6083648a"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Specifications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjA4MjU3MjMsImV4cCI6MTYyMDkxMjEyMywic3ViIjoiNzk4MjA4MzAtOWVlOC00ZGQ3LWFmMzItODMwYzE4OGQ0ZDk5In0.LvaPWG-EmXxqfEVndTGrNCieYYqtL1EUAYyqf3WIqcI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"specifications_id\": [\r\n        \"40e8c342-cdd5-4261-89db-5622b7c06853\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/cars/specifications/23e50dd8-11f0-4260-820e-45fad46babd0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"cars",
+										"specifications",
+										"23e50dd8-11f0-4260-820e-45fad46babd0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Images",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjA4MjU3MjMsImV4cCI6MTYyMDkxMjEyMywic3ViIjoiNzk4MjA4MzAtOWVlOC00ZGQ3LWFmMzItODMwYzE4OGQ0ZDk5In0.LvaPWG-EmXxqfEVndTGrNCieYYqtL1EUAYyqf3WIqcI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "images",
+											"type": "file",
+											"src": "/C:/Users/lucas/Downloads/1.jpg"
+										},
+										{
+											"key": "images",
+											"type": "file",
+											"src": "/C:/Users/lucas/Downloads/2.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3333/cars/images/9385a8e4-715a-493f-8a29-e0017468f087",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"cars",
+										"images",
+										"9385a8e4-715a-493f-8a29-e0017468f087"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Rentals",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjA5Mzc2NjAsImV4cCI6MTYyMTAyNDA2MCwic3ViIjoiNjRmOTIxYTItM2Q5Mi00MWYwLWIyNzctYzU5MTc1NGViOTQzIn0.UW25aPDcsYe0XUgvQVx4jOaf2CLhiWp61A_yRd0RSzQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"expected_return_date\": \"2021-05-15T20:33:24.295Z\",\r\n    \"car_id\": \"23e50dd8-11f0-4260-820e-45fad46babd0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/rentals",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"rentals"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Devolution",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjA5Mzc2NjAsImV4cCI6MTYyMTAyNDA2MCwic3ViIjoiNjRmOTIxYTItM2Q5Mi00MWYwLWIyNzctYzU5MTc1NGViOTQzIn0.UW25aPDcsYe0XUgvQVx4jOaf2CLhiWp61A_yRd0RSzQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3333/rentals/devolution/a4036fad-10bc-4bd0-9ff0-f2f608c14492",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"rentals",
+										"devolution",
+										"a4036fad-10bc-4bd0-9ff0-f2f608c14492"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListByUser",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjA5Mzc2NjAsImV4cCI6MTYyMTAyNDA2MCwic3ViIjoiNjRmOTIxYTItM2Q5Mi00MWYwLWIyNzctYzU5MTc1NGViOTQzIn0.UW25aPDcsYe0XUgvQVx4jOaf2CLhiWp61A_yRd0RSzQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3333/rentals/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"rentals",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
@@ -655,7 +924,6 @@
 	],
 	"variable": [
 		{
-			"id": "f971f54e-ef59-4693-bffa-98e02bd49549",
 			"key": "path",
 			"value": ""
 		}
