@@ -13,6 +13,7 @@ const userData = {
   email: 'admin@rentalx.com.br',
   password: 'admin',
 };
+
 const jestTimeoutInMS = 50 * 1000;
 
 describe('Create Category Controller', () => {
@@ -67,7 +68,7 @@ describe('Create Category Controller', () => {
     'Should not be able to create a Category with exactly name as before',
     async () => {
       const responseToken = await request(app).post('/sessions').send({
-        email: 'admin@rentx.com.br',
+        email: 'admin@rentalx.com.br',
         password: 'admin',
       });
 

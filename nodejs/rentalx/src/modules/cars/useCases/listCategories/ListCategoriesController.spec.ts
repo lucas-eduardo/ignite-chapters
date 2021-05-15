@@ -15,13 +15,17 @@ describe('List Category Controller', () => {
     await connection.runMigrations();
 
     const id = uuidV4();
-    const password = await hash('admin', 8);
+    const password = await hash('admin', 10);
 
-    await connection.query(
-      `INSERT INTO USERS(id, name, email, password, "isAdmin", created_at, driver_license)
-        values('${id}', 'admin', 'admin@rentalx.com.br', '${password}', true, 'now()', 'XXXXXX')
-      `,
-    );
+    await connection.query(`
+      INSERT INTO USERS(
+        id, name, email, password, 
+        "isAdmin", driver_license, created_at
+      ) values (
+        '${id}', 'admin', 'admin@rentalx.com.br', '${password}', 
+        true, 'license-admin', 'now()'
+      )
+    `);
   });
 
   afterAll(async () => {
@@ -29,14 +33,12 @@ describe('List Category Controller', () => {
     await connection.close();
   });
 
-  it('should be able to list all categories', async () => {
+  it('Should be able to list all Categories', async () => {
     const responseToken = await request(app).post('/sessions').send({
       email: 'admin@rentalx.com.br',
       password: 'admin',
     });
-
     const { token } = responseToken.body;
-
     await request(app)
       .post('/categories')
       .send({
@@ -50,5 +52,7 @@ describe('List Category Controller', () => {
     const response = await request(app).get('/categories');
 
     expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(1);
+    expect(response.body[0]).toHaveProperty('id');
   });
 });
